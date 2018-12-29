@@ -60,14 +60,21 @@ io.on('connection', function(socket){
             console.log('sign ' + ticTacToe.getPlayer(socket.id).sign);
 
             let currentPlayer = ticTacToe.getPlayer(socket.id);
-            if(ticTacToe.players.length < 2 || ticTacToe.turn !== currentPlayer.sign) return;
+            if(ticTacToe.players.length < 2 || ticTacToe.turn !== currentPlayer.sign || ticTacToe.winner) return;
 
             ticTacToe.putPlayerSignOnBoard(currentPlayer.sign, data.position);
+
+            let isWon = false;
+            let turn = ticTacToe.turn;
+
+            if(ticTacToe.winner) isWon = true;
 
             console.log(ticTacToe.board);
 
             io.sockets.emit('move', {
-                  board: ticTacToe.board
+                  board: ticTacToe.board,
+                  turn: turn,
+                  isWon: isWon
             });
       });
 

@@ -13,13 +13,15 @@ let ticTacToe = {
     ],
     players: [],
     turn: 'X',
+    winner: null,
 
     putPlayerSignOnBoard(playerSign, position) {
         this.board[position] = playerSign;
 
         if(this.checkIfGameIsWon()) {
-            console.log(this.turn + " wins.");
-            return;
+
+            this.winner = this.turn;
+            return true;
         }
 
         if(playerSign === 'X') this.turn = 'O';

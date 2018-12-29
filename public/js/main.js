@@ -56,8 +56,13 @@ $(document).ready(function() {
     });
 
     socket.on('move', function(data) {
-        console.log(data.board);
+        console.log(data);
         createBoard('#board', data.board);
         initListeners();
+
+        if(data.isWon) {
+            alert(data.turn + " wins");
+        }
+
     });
 });
