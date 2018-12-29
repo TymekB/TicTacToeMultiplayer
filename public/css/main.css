@@ -20,7 +20,34 @@
     cursor: pointer;
 }
 
+.square:nth-child(2),
+.square:nth-child(5),
+.square:nth-child(8) {
+    border-left: none;
+    border-right: none;
+}
+
 .square:nth-child(n+4)
 {
     border-top: none;
+}
+
+#logs {
+    margin-top: 10px;
+    background: black;
+    height: 300px;
+    border: 1px solid #111;
+    overflow-y: scroll;
+}
+
+#logs ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#logs ul > li {
+    padding: 10px;
+    color: green;
+    border-bottom: 1px solid #090909    ;
 }

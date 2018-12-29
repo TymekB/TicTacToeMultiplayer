@@ -23,11 +23,28 @@ io.on('connection', function(socket){
             room = freeRooms[0];
 
             room.join(socket);
+
+            socket.to(room.id).emit('bot', {
+                  message: socket.id + " joined.",
+                  users: room.users.length
+            });
+
+            socket.emit('bot', {
+                  message: "you joined " + room.id,
+                  users: room.users.length
+            });
+
+
       } else {
             let roomId = 'room_' + new Date().valueOf();
             room = roomManager.createRoom(roomId);
 
             room.join(socket);
+
+            socket.emit('bot', {
+                  message: 'created '+room.id,
+                  users: room.users.length
+            });
       }
 
       console.log(socket.id + ' joned ' + room.id);
@@ -36,8 +53,13 @@ io.on('connection', function(socket){
 
             room.leave(socket);
 
+            socket.to(room.id).emit('bot', {
+                  message: socket.id + " left ",
+                  users: room.users.length
+            });
+
             console.log(socket.id + " disconnected.");
-            console.log(socket.id + " left " + room.id);
+            console.log(socket.id + " left ");
 
       });
 

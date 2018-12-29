@@ -13,12 +13,25 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="text-center">TicTacToe <small>v1.0</small></h2>
 
+        <h2 class="text-center">TicTacToe <small>v1.0</small></h2>
+
+        <div class="row">
+            <div class="col-sm-6">
                 <div id="board">
 
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div id="logs">
+                    <ul>
+                        <li>
+                            <div class="pull-left"><b>Logs</b></div>
+                            <div class="pull-right"><b>Users connected: <span id="connected-users"></span></b></div>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -29,6 +42,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/socket.io.js"></script>
+    <script src="js/moment.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
