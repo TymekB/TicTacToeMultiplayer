@@ -1,0 +1,26 @@
+#board {
+    margin: 10px 10px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 300px;
+    text-align: center;
+}
+
+.square {
+    height: 100px;
+    background: #000;
+    float: left;
+    border: 1px solid #303030;
+    line-height: 100px;
+    font-size: 45px;
+}
+
+.square:hover {
+    background: #0a0a0a;
+    cursor: pointer;
+}
+
+.square:nth-child(n+4)
+{
+    border-top: none;
+}
