@@ -1,4 +1,5 @@
 function createBoard(element) {
+
     for(let i = 0; i < 9; i++) {
         $(element).append('<div class="square" data-id="'+i+'"></div>');
     }
@@ -11,7 +12,14 @@ $(document).ready(function() {
     createBoard('#board');
 
     $('.square').click(function(){
-        console.log($(this).data('id'));
+
+        let id = $(this).data('id');
+
+        console.log(id);
+
+        socket.emit('move', {
+            position: id
+        });
     });
 
     socket.on('bot', function(data) {
@@ -26,5 +34,9 @@ $(document).ready(function() {
 
         $("#logs ul").append(fullMessage);
         $("#connected-users").html(data.users);
+    });
+
+    socket.on('move', function(data) {
+        console.log(data);
     });
 });

@@ -47,7 +47,18 @@ io.on('connection', function(socket){
             });
       }
 
-      console.log(socket.id + ' joned ' + room.id);
+      console.log(socket.id + ' joined ' + room.id);
+
+      let board = [];
+      socket.on('move', function(data) {
+            console.log(data);
+
+            board[data.position] = 'X';
+
+            io.sockets.emit('move', {
+                  board: board
+            });
+      });
 
       socket.on('disconnect', function(){
 
