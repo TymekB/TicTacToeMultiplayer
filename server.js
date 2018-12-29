@@ -1,6 +1,7 @@
 let express = require('express');
 let socket = require('socket.io');
 let roomManager = require('./roomManager');
+let ticTacToe = require('./ticTacToe');
 
 let app = express();
 let port = process.env.PORT || 5000;
@@ -49,14 +50,21 @@ io.on('connection', function(socket){
 
       console.log(socket.id + ' joined ' + room.id);
 
-      let board = [];
-      socket.on('move', function(data) {
-            console.log(data);
+      ticTacToe.addPlayer(socket.id);
 
-            board[data.position] = 'X';
+
+      socket.on('move', function(data) {
+
+            let currentPlayer = ticTacToe.getPlayer(socket.id);
+
+            if(ticTacToe.players.length < 2 || ticTacToe.turn !== currentPlayer.sign) return;
+
+            ticTacToe.putPlayerSignOnBoard(currentPlayer.sign, data.position);
+
+            console.log(ticTacToe.board);
 
             io.sockets.emit('move', {
-                  board: board
+                  board: ticTacToe.board
             });
       });
 
