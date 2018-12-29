@@ -14,6 +14,7 @@ let ticTacToe = {
     players: [],
     turn: 'X',
     winner: null,
+    isWon: false,
 
     putPlayerSignOnBoard(playerSign, position) {
         this.board[position] = playerSign;
@@ -21,6 +22,7 @@ let ticTacToe = {
         if(this.checkIfGameIsWon()) {
 
             this.winner = this.turn;
+            this.isWon = true;
             return true;
         }
 
@@ -88,6 +90,13 @@ let ticTacToe = {
         }).indexOf(name);
 
         return this.players[playerPos];
+    },
+
+    reset() {
+        this.board = ['n', 'n', 'n', 'n', 'n', 'n', 'n', 'n', 'n'];
+        this.winner = null;
+        this.isWon = false;
+        this.turn = 'X';
     }
 
 };

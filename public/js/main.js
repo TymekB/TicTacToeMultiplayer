@@ -23,7 +23,7 @@ function createBoard(element, board = []) {
     $(element).html(html);
 }
 
-function initListeners() {
+function initBoardListener() {
     $('.square').click(function(){
 
         let id = $(this).data('id');
@@ -39,7 +39,7 @@ function initListeners() {
 $(document).ready(function() {
 
     createBoard('#board');
-    initListeners();
+    initBoardListener();
 
     socket.on('bot', function(data) {
 
@@ -58,11 +58,13 @@ $(document).ready(function() {
     socket.on('move', function(data) {
         console.log(data);
         createBoard('#board', data.board);
-        initListeners();
+        initBoardListener();
 
         if(data.isWon) {
             alert(data.turn + " wins");
+            setTimeout(function(){
+                socket.emit('restart', null);
+            }, 2000);
         }
-
     });
 });

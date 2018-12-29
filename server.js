@@ -64,17 +64,25 @@ io.on('connection', function(socket){
 
             ticTacToe.putPlayerSignOnBoard(currentPlayer.sign, data.position);
 
-            let isWon = false;
-            let turn = ticTacToe.turn;
-
-            if(ticTacToe.winner) isWon = true;
-
             console.log(ticTacToe.board);
 
             io.sockets.emit('move', {
                   board: ticTacToe.board,
-                  turn: turn,
-                  isWon: isWon
+                  turn: ticTacToe.turn,
+                  isWon: ticTacToe.isWon
+            });
+      });
+
+      socket.on('restart', function(data) {
+
+            if(ticTacToe.winner) {
+                  ticTacToe.reset();
+            }
+
+            io.sockets.emit('move', {
+                  board: ticTacToe.board,
+                  turn: ticTacToe.turn,
+                  isWon: ticTacToe.isWon
             });
       });
 
