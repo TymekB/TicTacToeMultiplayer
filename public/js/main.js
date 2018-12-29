@@ -1,16 +1,29 @@
-function createBoard(element) {
+var socket = io();
+
+function createBoard(element, board = []) {
+
+    let html = ``;
 
     for(let i = 0; i < 9; i++) {
-        $(element).append('<div class="square" data-id="'+i+'"></div>');
+
+        let sign = null;
+
+        if(board && board[i] !== 'n') {
+
+            sign = board[i];
+        }
+
+        html += `
+                <div class="square" data-id="${i}">
+                    ${(sign) ? sign : ''}
+                </div>
+        `;
     }
+
+    $(element).html(html);
 }
 
-$(document).ready(function() {
-
-    let socket = io();
-
-    createBoard('#board');
-
+function initListeners() {
     $('.square').click(function(){
 
         let id = $(this).data('id');
@@ -21,6 +34,12 @@ $(document).ready(function() {
             position: id
         });
     });
+}
+
+$(document).ready(function() {
+
+    createBoard('#board');
+    initListeners();
 
     socket.on('bot', function(data) {
 
@@ -37,6 +56,8 @@ $(document).ready(function() {
     });
 
     socket.on('move', function(data) {
-        console.log(data);
+        console.log(data.board);
+        createBoard('#board', data.board);
+        initListeners();
     });
 });
