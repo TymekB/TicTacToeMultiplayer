@@ -4,7 +4,9 @@
   "description": "simple tic tac toe app",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "room": "0.0.4",
+    "src": "^1.1.2"
   },
   "devDependencies": {
     "socket.io": "^2.2.0"

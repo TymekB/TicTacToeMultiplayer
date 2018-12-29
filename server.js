@@ -1,5 +1,6 @@
 let express = require('express');
 let socket = require('socket.io');
+let roomManager = require('./roomManager');
 
 let app = express();
 let port = process.env.PORT || 5000;
@@ -14,4 +15,30 @@ let io = socket(server);
 
 io.on('connection', function(socket){
       console.log(socket.id + " connected.");
+
+      let room = null;
+      let freeRooms = roomManager.getFreeRooms();
+
+      if(freeRooms.length > 0) {
+            room = freeRooms[0];
+
+            room.join(socket);
+      } else {
+            let roomId = 'room_' + new Date().valueOf();
+            room = roomManager.createRoom(roomId);
+
+            room.join(socket);
+      }
+
+      console.log(socket.id + ' joned ' + room.id);
+
+      socket.on('disconnect', function(){
+
+            room.leave(socket);
+
+            console.log(socket.id + " disconnected.");
+            console.log(socket.id + " left " + room.id);
+
+      });
+
 });
