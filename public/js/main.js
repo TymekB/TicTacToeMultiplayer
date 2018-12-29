@@ -7,4 +7,8 @@ function createBoard(element) {
 $(document).ready(function() {
     createBoard('#board');
 
+
+    $('.square').click(function(){
+        console.log($(this).data('id'));
+    });
 });
