@@ -62,7 +62,6 @@ io.on('connection', function(socket){
             let currentPlayer = ticTacToe.getPlayer(socket.id);
             if(ticTacToe.players.length < 2 || ticTacToe.turn !== currentPlayer.sign) return;
 
-
             ticTacToe.putPlayerSignOnBoard(currentPlayer.sign, data.position);
 
             console.log(ticTacToe.board);
