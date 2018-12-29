@@ -38,6 +38,16 @@ let ticTacToe = {
         return true;
     },
 
+    removePlayer(name) {
+        let playerPos = this.players.map(function(player) {
+            return player.name;
+        }).indexOf(name);
+
+        this.players.splice(playerPos, 1);
+
+        return true;
+    },
+
     getPlayer(name) {
         let playerPos = this.players.map(function(player) {
             return player.name;

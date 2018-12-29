@@ -52,12 +52,16 @@ io.on('connection', function(socket){
 
       ticTacToe.addPlayer(socket.id);
 
+      console.log(ticTacToe.players);
 
       socket.on('move', function(data) {
 
-            let currentPlayer = ticTacToe.getPlayer(socket.id);
+            console.log('turn ' + ticTacToe.turn);
+            console.log('sign ' + ticTacToe.getPlayer(socket.id).sign);
 
+            let currentPlayer = ticTacToe.getPlayer(socket.id);
             if(ticTacToe.players.length < 2 || ticTacToe.turn !== currentPlayer.sign) return;
+
 
             ticTacToe.putPlayerSignOnBoard(currentPlayer.sign, data.position);
 
@@ -71,6 +75,7 @@ io.on('connection', function(socket){
       socket.on('disconnect', function(){
 
             room.leave(socket);
+            ticTacToe.removePlayer(socket.id);
 
             socket.to(room.id).emit('bot', {
                   message: socket.id + " left ",
