@@ -1,0 +1,13 @@
+{
+  "name": "tic_tac_toe",
+  "version": "1.0.0",
+  "description": "simple tic tac toe app",
+  "main": "server.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
