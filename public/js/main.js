@@ -5,8 +5,10 @@ function createBoard(element) {
 }
 
 $(document).ready(function() {
-    createBoard('#board');
 
+    let socket = io();
+
+    createBoard('#board');
 
     $('.square').click(function(){
         console.log($(this).data('id'));
