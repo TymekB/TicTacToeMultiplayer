@@ -28,8 +28,6 @@ function initBoardListener() {
 
         let id = $(this).data('id');
 
-        console.log(id);
-
         socket.emit('move', {
             position: id
         });
@@ -56,13 +54,17 @@ $(document).ready(function() {
     });
 
     socket.on('move', function(data) {
-        console.log(data);
+
         createBoard('#board', data.board);
         initBoardListener();
 
         if(data.isWon) {
-            alert(data.turn + " wins");
             socket.emit('restart', null);
+            alert(data.turn + " wins");
+        }
+        else if(data.draw) {
+            socket.emit('restart', null);
+            alert('Draw! No one wins.');
         }
     });
 });

@@ -26,6 +26,7 @@ let ticTacToe = {
 
             this.winner = this.turn;
             this.isWon = true;
+
             return true;
         }
 
@@ -53,6 +54,19 @@ let ticTacToe = {
         return false;
     },
 
+    checkIfBoardIsFull() {
+
+        let playerSigns = 0;
+
+        this.board.forEach(function(playerSign) {
+            if(playerSign === 'X' || playerSign === 'O' && playerSign !== 'n') {
+                playerSigns++;
+            }
+        });
+
+        return playerSigns === 9;
+    },
+
     addPlayer(name) {
 
         let player = this.players[0];
@@ -60,7 +74,6 @@ let ticTacToe = {
         let sign = null;
 
         if(player) {
-
             if(player.sign === 'X') sign = 'O';
             else sign = 'X'
         }
