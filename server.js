@@ -75,6 +75,10 @@ io.on('connection', function(socket){
 
       socket.on('restart', function(data) {
 
+            if(ticTacToe.winner) {
+                  ticTacToe.reset();
+            }
+
            restart();
       });
 
@@ -82,6 +86,7 @@ io.on('connection', function(socket){
 
             room.leave(socket);
             ticTacToe.removePlayer(socket.id);
+            ticTacToe.reset();
 
             socket.to(room.id).emit('bot', {
                   message: socket.id + " left ",
@@ -98,10 +103,6 @@ io.on('connection', function(socket){
 });
 
 function restart() {
-      if(ticTacToe.winner) {
-            ticTacToe.reset();
-      }
-
       io.sockets.emit('move', {
             board: ticTacToe.board,
             turn: ticTacToe.turn,
