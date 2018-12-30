@@ -17,6 +17,9 @@ let ticTacToe = {
     isWon: false,
 
     putPlayerSignOnBoard(playerSign, position) {
+
+        if(this.board[position] === 'X' || this.board[position] === 'O') return false;
+
         this.board[position] = playerSign;
 
         if(this.checkIfGameIsWon()) {

@@ -51,21 +51,15 @@ io.on('connection', function(socket){
       console.log(socket.id + ' joined ' + room.id);
 
       ticTacToe.addPlayer(socket.id);
-
       console.log(ticTacToe.players);
 
       socket.on('move', function(data) {
-
-            console.log('turn ' + ticTacToe.turn);
-            console.log('sign ' + ticTacToe.getPlayer(socket.id).sign);
 
             let currentPlayer = ticTacToe.getPlayer(socket.id);
             if(ticTacToe.players.length < 2 || ticTacToe.turn !== currentPlayer.sign || ticTacToe.winner) return;
 
             ticTacToe.putPlayerSignOnBoard(currentPlayer.sign, data.position);
-
-            console.log(ticTacToe.board);
-
+            
             io.sockets.emit('move', {
                   board: ticTacToe.board,
                   turn: ticTacToe.turn,
