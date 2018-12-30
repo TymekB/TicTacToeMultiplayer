@@ -75,15 +75,7 @@ io.on('connection', function(socket){
 
       socket.on('restart', function(data) {
 
-            if(ticTacToe.winner) {
-                  ticTacToe.reset();
-            }
-
-            io.sockets.emit('move', {
-                  board: ticTacToe.board,
-                  turn: ticTacToe.turn,
-                  isWon: ticTacToe.isWon
-            });
+           restart();
       });
 
       socket.on('disconnect', function(){
@@ -96,9 +88,23 @@ io.on('connection', function(socket){
                   users: room.users.length
             });
 
+            restart();
+
             console.log(socket.id + " disconnected.");
             console.log(socket.id + " left ");
 
       });
 
 });
+
+function restart() {
+      if(ticTacToe.winner) {
+            ticTacToe.reset();
+      }
+
+      io.sockets.emit('move', {
+            board: ticTacToe.board,
+            turn: ticTacToe.turn,
+            isWon: ticTacToe.isWon
+      });
+}

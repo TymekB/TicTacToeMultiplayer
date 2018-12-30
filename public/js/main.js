@@ -62,9 +62,7 @@ $(document).ready(function() {
 
         if(data.isWon) {
             alert(data.turn + " wins");
-            setTimeout(function(){
-                socket.emit('restart', null);
-            }, 2000);
+            socket.emit('restart', null);
         }
     });
 });
