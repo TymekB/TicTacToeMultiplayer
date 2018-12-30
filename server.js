@@ -15,6 +15,7 @@ app.use(express.static('public'));
 let io = socket(server);
 
 io.on('connection', function(socket){
+
       console.log(socket.id + " connected.");
 
       let room = null;
@@ -35,7 +36,6 @@ io.on('connection', function(socket){
                   users: room.users.length
             });
 
-
       } else {
             let roomId = 'room_' + new Date().valueOf();
             room = roomManager.createRoom(roomId);
@@ -43,7 +43,7 @@ io.on('connection', function(socket){
             room.join(socket);
 
             socket.emit('bot', {
-                  message: 'created '+room.id,
+                  message: 'created ' + room.id,
                   users: room.users.length
             });
       }

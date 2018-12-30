@@ -18,7 +18,7 @@ let ticTacToe = {
 
     putPlayerSignOnBoard(playerSign, position) {
 
-        if(this.board[position] === 'X' || this.board[position] === 'O') return false;
+        if(this.checkIfPositionIsTaken(position)) return false;
 
         this.board[position] = playerSign;
 
@@ -65,6 +65,10 @@ let ticTacToe = {
         });
 
         return playerSigns === 9;
+    },
+
+    checkIfPositionIsTaken(position) {
+        return this.board[position] === 'X' || this.board[position] === 'O'
     },
 
     addPlayer(name) {
